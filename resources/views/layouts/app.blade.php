@@ -221,8 +221,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('penduduk') }}" class="nav-link {{ request()->routeIs('penduduk') ? 'active' : '' }}">
-                    <i class="bi bi-person-lines-fill"></i>
+                <a href="{{ route('penduduk.index') }}"
+                    class="nav-link {{ request()->routeIs('penduduk.*') ? 'active' : '' }}"> <i
+                        class="bi bi-person-lines-fill"></i>
                     Data Penduduk
                 </a>
             </li>

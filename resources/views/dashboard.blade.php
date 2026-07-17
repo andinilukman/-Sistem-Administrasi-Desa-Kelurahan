@@ -22,7 +22,7 @@
             <div class="card-body p-4 d-flex align-items-center">
                 <div class="flex-grow-1">
                     <h6 class="text-muted fw-semibold mb-2 text-uppercase" style="font-size: 0.8rem;">Jumlah Penduduk</h6>
-                    <h3 class="fw-bold mb-0" style="color: var(--sidebar-blue);">4.520</h3>
+                    <h3 class="fw-bold mb-0" style="color: var(--sidebar-blue);">{{ number_format($jumlahPenduduk, 0, ',', '.') }}</h3>
                 </div>
                 <div class="flex-shrink-0 ms-3">
                     <div class="d-flex align-items-center justify-content-center bg-primary bg-opacity-10 rounded-circle" style="width: 55px; height: 55px;">

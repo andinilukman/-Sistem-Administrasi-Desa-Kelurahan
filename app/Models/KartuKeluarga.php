@@ -21,4 +21,9 @@ class KartuKeluarga extends Model
         'provinsi',
         'kode_pos',
     ];
+
+    public function penduduk()
+    {
+        return $this->hasMany(Penduduk::class);
+    }
 }

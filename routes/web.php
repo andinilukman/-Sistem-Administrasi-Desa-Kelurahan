@@ -17,7 +17,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 // Master Data
 Route::resource('kartu-keluarga', App\Http\Controllers\KartuKeluargaController::class);
-Route::get('/penduduk', [DashboardController::class, 'placeholder'])->defaults('title', 'penduduk')->name('penduduk');
+Route::resource('penduduk', App\Http\Controllers\PendudukController::class);
 Route::get('/aparat-desa', [DashboardController::class, 'placeholder'])->defaults('title', 'aparat-desa')->name('aparat-desa');
 
 // Administrasi Surat
