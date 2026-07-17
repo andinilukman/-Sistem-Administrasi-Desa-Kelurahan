@@ -212,96 +212,137 @@
                 </a>
             </li>
 
-            @if(auth()->check() && auth()->user()->role == 'Admin')
-            <li class="nav-item-header">Master Data</li>
-            <li class="nav-item">
-                <a href="{{ route('kartu-keluarga.index') }}"
-                    class="nav-link {{ request()->routeIs('kartu-keluarga.*') ? 'active' : '' }}">
-                    <i class="bi bi-people-fill"></i>
-                    Data Kartu Keluarga
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('penduduk.index') }}"
-                    class="nav-link {{ request()->routeIs('penduduk.*') ? 'active' : '' }}"> <i
-                        class="bi bi-person-lines-fill"></i>
-                    Data Penduduk
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('aparat-desa.index') }}"
-                    class="nav-link {{ request()->routeIs('aparat-desa.*') ? 'active' : '' }}">
-                    <i class="bi bi-person-badge-fill"></i>
-                    Data Aparat Desa
-                </a>
-            </li>
+            @php $role = auth()->check() ? auth()->user()->role : ''; @endphp
+
+            @if($role == 'Admin')
+                <li class="nav-item-header">Master Data</li>
+                <li class="nav-item">
+                    <a href="{{ route('kartu-keluarga.index') }}" class="nav-link {{ request()->routeIs('kartu-keluarga.*') ? 'active' : '' }}">
+                        <i class="bi bi-people-fill"></i> Data Kartu Keluarga
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('penduduk.index') }}" class="nav-link {{ request()->routeIs('penduduk.*') ? 'active' : '' }}"> 
+                        <i class="bi bi-person-lines-fill"></i> Data Penduduk
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('aparat-desa.index') }}" class="nav-link {{ request()->routeIs('aparat-desa.*') ? 'active' : '' }}">
+                        <i class="bi bi-person-badge-fill"></i> Data Aparat Desa
+                    </a>
+                </li>
+
+                <li class="nav-item-header">Administrasi Surat</li>
+                <li class="nav-item">
+                    <a href="{{ route('pengajuan-surat.index') }}" class="nav-link {{ request()->routeIs('pengajuan-surat.*') ? 'active' : '' }}">
+                        <i class="bi bi-envelope-plus-fill"></i> Pengajuan Surat
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('verifikasi-surat.index') }}" class="nav-link {{ request()->routeIs('verifikasi-surat.*') ? 'active' : '' }}">
+                        <i class="bi bi-envelope-check-fill"></i> Verifikasi Surat
+                    </a>
+                </li>
+
+                <li class="nav-item-header">Pengelolaan</li>
+                <li class="nav-item">
+                    <a href="{{ route('pengumuman.index') }}" class="nav-link {{ request()->routeIs('pengumuman.*') ? 'active' : '' }}">
+                        <i class="bi bi-megaphone-fill"></i> Pengumuman
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('inventaris-aset.index') }}" class="nav-link {{ request()->routeIs('inventaris-aset.*') ? 'active' : '' }}">
+                        <i class="bi bi-box-seam-fill"></i> Inventaris Aset Desa
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('kelola-pengguna.index') }}" class="nav-link {{ request()->routeIs('kelola-pengguna.*') ? 'active' : '' }}">
+                        <i class="bi bi-people-fill"></i> Kelola Pengguna
+                    </a>
+                </li>
+
+                <li class="nav-item-header">Laporan</li>
+                <li class="nav-item">
+                    <a href="{{ route('laporan-penduduk.index') }}" class="nav-link {{ request()->routeIs('laporan-penduduk.*') ? 'active' : '' }}">
+                        <i class="bi bi-file-earmark-person-fill"></i> Laporan Penduduk
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('laporan-kartu-keluarga.index') }}" class="nav-link {{ request()->routeIs('laporan-kartu-keluarga.*') ? 'active' : '' }}">
+                        <i class="bi bi-file-earmark-text-fill"></i> Laporan Kartu Keluarga
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('laporan-surat.index') }}" class="nav-link {{ request()->routeIs('laporan-surat.*') ? 'active' : '' }}">
+                        <i class="bi bi-file-earmark-check-fill"></i> Laporan Pengajuan Surat
+                    </a>
+                </li>
+            @elseif($role == 'Kepala Desa')
+                <li class="nav-item-header">Administrasi Surat</li>
+                <li class="nav-item">
+                    <a href="{{ route('verifikasi-surat.index') }}" class="nav-link {{ request()->routeIs('verifikasi-surat.*') ? 'active' : '' }}">
+                        <i class="bi bi-envelope-check-fill"></i> Persetujuan Surat
+                    </a>
+                </li>
+
+                <li class="nav-item-header">Laporan & Statistik</li>
+                <li class="nav-item">
+                    <a href="{{ route('laporan-penduduk.index') }}" class="nav-link {{ request()->routeIs('laporan-penduduk.*') ? 'active' : '' }}">
+                        <i class="bi bi-file-earmark-person-fill"></i> Laporan Penduduk
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('laporan-kartu-keluarga.index') }}" class="nav-link {{ request()->routeIs('laporan-kartu-keluarga.*') ? 'active' : '' }}">
+                        <i class="bi bi-file-earmark-text-fill"></i> Laporan KK
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('laporan-surat.index') }}" class="nav-link {{ request()->routeIs('laporan-surat.*') ? 'active' : '' }}">
+                        <i class="bi bi-file-earmark-check-fill"></i> Laporan Surat
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('statistik') }}" class="nav-link {{ request()->routeIs('statistik') ? 'active' : '' }}">
+                        <i class="bi bi-bar-chart-fill"></i> Statistik
+                    </a>
+                </li>
+
+                <li class="nav-item-header">Informasi</li>
+                <li class="nav-item">
+                    <a href="{{ route('pengumuman.index') }}" class="nav-link {{ request()->routeIs('pengumuman.*') ? 'active' : '' }}">
+                        <i class="bi bi-megaphone-fill"></i> Pengumuman
+                    </a>
+                </li>
+            @elseif($role == 'Warga')
+                <li class="nav-item-header">Layanan Surat</li>
+                <li class="nav-item">
+                    <a href="{{ route('pengajuan-surat.warga') }}" class="nav-link {{ request()->routeIs('pengajuan-surat.warga') || request()->routeIs('pengajuan-surat.create-warga') ? 'active' : '' }}">
+                        <i class="bi bi-envelope-plus-fill"></i> Ajukan Surat
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('pengajuan-surat.warga') }}" class="nav-link {{ request()->routeIs('pengajuan-surat.show-warga') ? 'active' : '' }}">
+                        <i class="bi bi-envelope-check-fill"></i> Status Pengajuan
+                    </a>
+                </li>
+
+                <li class="nav-item-header">Layanan Lainnya</li>
+                <li class="nav-item">
+                    <a href="{{ route('pengaduan.index') }}" class="nav-link {{ request()->routeIs('pengaduan.*') ? 'active' : '' }}">
+                        <i class="bi bi-chat-left-dots-fill"></i> Pengaduan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('pengumuman.index') }}" class="nav-link {{ request()->routeIs('pengumuman.*') ? 'active' : '' }}">
+                        <i class="bi bi-megaphone-fill"></i> Pengumuman Desa
+                    </a>
+                </li>
             @endif
-
-            <li class="nav-item-header">Administrasi Surat</li>
-            <li class="nav-item">
-                <a href="{{ route('pengajuan-surat.index') }}"
-                    class="nav-link {{ request()->routeIs('pengajuan-surat.*') ? 'active' : '' }}">
-                    <i class="bi bi-envelope-plus-fill"></i>
-                    Pengajuan Surat
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('verifikasi-surat.index') }}"
-                    class="nav-link {{ request()->routeIs('verifikasi-surat.*') ? 'active' : '' }}">
-                    <i class="bi bi-envelope-check-fill"></i>
-                    Verifikasi Surat
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('surat-disetujui') }}"
-                    class="nav-link {{ request()->routeIs('surat-disetujui') ? 'active' : '' }}">
-                    <i class="bi bi-check-circle-fill"></i>
-                    Surat Disetujui
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('surat-ditolak') }}"
-                    class="nav-link {{ request()->routeIs('surat-ditolak') ? 'active' : '' }}">
-                    <i class="bi bi-x-circle-fill"></i>
-                    Surat Ditolak
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('riwayat-surat') }}"
-                    class="nav-link {{ request()->routeIs('riwayat-surat') ? 'active' : '' }}">
-                    <i class="bi bi-clock-history"></i>
-                    Riwayat Surat
-                </a>
-            </li>
-
-            <li class="nav-item-header">Laporan</li>
-            <li class="nav-item">
-                <a href="{{ route('laporan-penduduk') }}"
-                    class="nav-link {{ request()->routeIs('laporan-penduduk') ? 'active' : '' }}">
-                    <i class="bi bi-file-earmark-person-fill"></i>
-                    Laporan Penduduk
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('laporan-surat') }}"
-                    class="nav-link {{ request()->routeIs('laporan-surat') ? 'active' : '' }}">
-                    <i class="bi bi-file-earmark-text-fill"></i>
-                    Laporan Surat
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('statistik') }}"
-                    class="nav-link {{ request()->routeIs('statistik') ? 'active' : '' }}">
-                    <i class="bi bi-bar-chart-fill"></i>
-                    Statistik
-                </a>
-            </li>
 
             <li class="nav-item-header">Profil</li>
             <li class="nav-item">
-                <a href="{{ route('profil') }}" class="nav-link {{ request()->routeIs('profil') ? 'active' : '' }}">
-                    <i class="bi bi-person-fill"></i>
-                    Profil
+                <a href="{{ route('profil.index') }}" class="nav-link {{ request()->routeIs('profil.index') ? 'active' : '' }}">
+                    <i class="bi bi-person-fill"></i> Profil
                 </a>
             </li>
         </ul>
@@ -334,7 +375,7 @@
                                 alt="Profil" class="profile-img">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="border-radius: 10px;">
-                            <li><a class="dropdown-item py-2" href="{{ route('profil') }}"><i
+                            <li><a class="dropdown-item py-2" href="{{ route('profil.index') }}"><i
                                         class="bi bi-person me-2"></i> Profil</a></li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -354,7 +395,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p class="mb-0">&copy; 2026 Sistem Administrasi Desa/Kelurahan. Dibangun menggunakan Laravel 13.</p>
+            <p class="mb-0">&copy; 2026 Sistem Administrasi Desa/Kelurahan | Laravel 13</p>
         </footer>
     </div>
 

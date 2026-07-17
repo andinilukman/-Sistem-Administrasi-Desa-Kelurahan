@@ -29,5 +29,13 @@ class UserSeeder extends Seeder
             'password' => Hash::make('kepala123'),
             'role' => 'Kepala Desa'
         ]);
+
+        User::create([
+            'name' => 'Budi Warga',
+            'username' => 'warga',
+            'email' => 'warga@desa.id',
+            'password' => Hash::make('warga123'),
+            'role' => 'Warga',
+        ]);
     }
 }

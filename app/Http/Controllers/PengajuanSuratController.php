@@ -37,6 +37,12 @@ class PengajuanSuratController extends Controller
         return view('pengajuan-surat.index', compact('pengajuanSurats'));
     }
 
+    public function wargaIndex()
+    {
+        $pengajuanSurats = PengajuanSurat::latest()->paginate(10);
+        return view('pengajuan-surat.warga-index', compact('pengajuanSurats'));
+    }
+
     public function create()
     {
         $penduduks = Penduduk::orderBy('nama_lengkap', 'asc')->get();
@@ -70,6 +76,10 @@ class PengajuanSuratController extends Controller
         ]);
 
         PengajuanSurat::create($request->all());
+
+        if (auth()->check() && auth()->user()->role == 'Warga') {
+            return redirect()->route('pengajuan-surat.warga')->with('success', 'Pengajuan Surat berhasil ditambahkan.');
+        }
 
         return redirect()->route('pengajuan-surat.index')->with('success', 'Pengajuan Surat berhasil ditambahkan.');
     }

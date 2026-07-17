@@ -162,26 +162,15 @@
         </div>
     </div>
     
-    <!-- Informasi Desa -->
+    <!-- Grafik Penduduk -->
     <div class="col-xl-4 col-lg-5">
         <div class="card border-0 shadow-sm h-100" style="border-radius: var(--radius);">
             <div class="card-header bg-white border-bottom-0 pt-4 pb-0 px-4">
-                <h5 class="fw-bold" style="color: var(--sidebar-blue);"><i class="bi bi-info-circle-fill text-primary me-2"></i>Informasi Desa</h5>
+                <h5 class="fw-bold" style="color: var(--sidebar-blue);"><i class="bi bi-pie-chart-fill text-primary me-2"></i>Demografi Penduduk</h5>
             </div>
-            <div class="card-body p-4">
-                <div class="alert alert-primary bg-primary bg-opacity-10 border-0" role="alert" style="border-radius: 10px;">
-                    <h6 class="fw-bold mb-1"><i class="bi bi-megaphone-fill me-2"></i>Pelayanan Administrasi</h6>
-                    <p class="mb-0 small">Pelayanan administrasi dibuka setiap hari kerja pukul 08:00 - 15:00 WIB.</p>
-                </div>
-                
-                <div class="alert alert-warning bg-warning bg-opacity-10 border-0" role="alert" style="border-radius: 10px;">
-                    <h6 class="fw-bold mb-1"><i class="bi bi-exclamation-triangle-fill me-2"></i>Pembaruan Data KK</h6>
-                    <p class="mb-0 small">Warga diimbau untuk segera memperbarui data Kartu Keluarga terbaru.</p>
-                </div>
-                
-                <div class="alert alert-info bg-info bg-opacity-10 border-0 mb-0" role="alert" style="border-radius: 10px;">
-                    <h6 class="fw-bold mb-1"><i class="bi bi-calendar-event-fill me-2"></i>Jadwal Gotong Royong</h6>
-                    <p class="mb-0 small">Kegiatan gotong royong rutin akan dilaksanakan pada hari Minggu pagi di setiap dusun.</p>
+            <div class="card-body p-4 d-flex justify-content-center align-items-center">
+                <div style="width: 100%; max-width: 300px;">
+                    <canvas id="pendudukChart" height="250"></canvas>
                 </div>
             </div>
         </div>
@@ -324,7 +313,8 @@
                             drawBorder: false
                         },
                         ticks: {
-                            font: { family: "'Inter', sans-serif" }
+                            font: { family: "'Inter', sans-serif" },
+                            precision: 0
                         }
                     },
                     x: {
@@ -335,6 +325,43 @@
                         ticks: {
                             font: { family: "'Inter', sans-serif" }
                         }
+                    }
+                }
+            }
+        });
+
+        // Demografi Penduduk Doughnut Chart
+        const ctxPenduduk = document.getElementById('pendudukChart').getContext('2d');
+        new Chart(ctxPenduduk, {
+            type: 'doughnut',
+            data: {
+                labels: ['Laki-laki', 'Perempuan'],
+                datasets: [{
+                    data: [{{ $jumlahLakiLaki }}, {{ $jumlahPerempuan }}],
+                    backgroundColor: ['#2563EB', '#ec4899'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: { family: "'Inter', sans-serif", size: 13 },
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1E3A8A',
+                        padding: 12,
+                        titleFont: { size: 13, family: "'Inter', sans-serif" },
+                        bodyFont: { size: 14, weight: 'bold', family: "'Inter', sans-serif" },
+                        cornerRadius: 8
                     }
                 }
             }

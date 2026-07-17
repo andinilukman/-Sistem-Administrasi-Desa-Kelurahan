@@ -24,7 +24,11 @@
             </div>
             
             <div class="card-body p-4">
-                <form action="{{ route('pengajuan-surat.store') }}" method="POST">
+                @php
+                    $formAction = (auth()->check() && auth()->user()->role == 'Warga') ? route('pengajuan-surat.store-warga') : route('pengajuan-surat.store');
+                    $cancelRoute = (auth()->check() && auth()->user()->role == 'Warga') ? route('pengajuan-surat.warga') : route('pengajuan-surat.index');
+                @endphp
+                <form action="{{ $formAction }}" method="POST">
                     @csrf
                     
                     <h6 class="text-muted fw-bold mb-3 border-bottom pb-2">Informasi Surat</h6>
@@ -115,7 +119,7 @@
                     </div>
                     
                     <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
-                        <a href="{{ route('pengajuan-surat.index') }}" class="btn btn-light" style="border-radius: 8px;">Batal</a>
+                        <a href="{{ $cancelRoute }}" class="btn btn-light" style="border-radius: 8px;">Batal</a>
                         <button type="submit" class="btn btn-primary" style="border-radius: 8px;">
                             <i class="bi bi-save me-1"></i> Simpan Pengajuan
                         </button>
