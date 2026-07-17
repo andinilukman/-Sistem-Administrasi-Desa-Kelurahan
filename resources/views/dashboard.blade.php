@@ -69,12 +69,79 @@
         <div class="card h-100 border-0 shadow-sm" style="border-left: 5px solid #ef4444 !important; border-radius: var(--radius);">
             <div class="card-body p-4 d-flex align-items-center">
                 <div class="flex-grow-1">
-                    <h6 class="text-muted fw-semibold mb-2 text-uppercase" style="font-size: 0.8rem;">Jumlah Pengajuan Surat</h6>
-                    <h3 class="fw-bold mb-0" style="color: var(--sidebar-blue);">148</h3>
+                    <h6 class="text-muted fw-semibold mb-2 text-uppercase" style="font-size: 0.8rem;">Total Pengajuan Surat</h6>
+                    <h3 class="fw-bold mb-0" style="color: var(--sidebar-blue);">{{ number_format($totalSurat, 0, ',', '.') }}</h3>
                 </div>
                 <div class="flex-shrink-0 ms-3">
                     <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 55px; height: 55px; background-color: rgba(239, 68, 68, 0.1);">
                         <i class="bi bi-envelope-paper-fill" style="font-size: 1.5rem; color: #ef4444;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistik Status Surat -->
+<div class="row g-4 mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm" style="border-radius: var(--radius); background-color: var(--sidebar-blue); color: white;">
+            <div class="card-body p-4 d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <h6 class="fw-medium mb-2 opacity-75" style="font-size: 0.9rem;">Surat Menunggu</h6>
+                    <h3 class="fw-bold mb-0">{{ number_format($suratMenunggu, 0, ',', '.') }}</h3>
+                </div>
+                <div class="flex-shrink-0 ms-3">
+                    <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 50px; height: 50px; background-color: rgba(255, 255, 255, 0.2);">
+                        <i class="bi bi-clock-history fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm" style="border-radius: var(--radius); background-color: var(--primary-blue); color: white;">
+            <div class="card-body p-4 d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <h6 class="fw-medium mb-2 opacity-75" style="font-size: 0.9rem;">Surat Diproses</h6>
+                    <h3 class="fw-bold mb-0">{{ number_format($suratDiproses, 0, ',', '.') }}</h3>
+                </div>
+                <div class="flex-shrink-0 ms-3">
+                    <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 50px; height: 50px; background-color: rgba(255, 255, 255, 0.2);">
+                        <i class="bi bi-arrow-repeat fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm" style="border-radius: var(--radius); background-color: var(--light-blue); color: white;">
+            <div class="card-body p-4 d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <h6 class="fw-medium mb-2 opacity-75" style="font-size: 0.9rem;">Surat Disetujui</h6>
+                    <h3 class="fw-bold mb-0">{{ number_format($suratDisetujui, 0, ',', '.') }}</h3>
+                </div>
+                <div class="flex-shrink-0 ms-3">
+                    <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 50px; height: 50px; background-color: rgba(255, 255, 255, 0.2);">
+                        <i class="bi bi-check-circle fs-4"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm" style="border-radius: var(--radius); background-color: #0f172a; color: white;">
+            <div class="card-body p-4 d-flex align-items-center">
+                <div class="flex-grow-1">
+                    <h6 class="fw-medium mb-2 opacity-75" style="font-size: 0.9rem;">Surat Ditolak</h6>
+                    <h3 class="fw-bold mb-0">{{ number_format($suratDitolak, 0, ',', '.') }}</h3>
+                </div>
+                <div class="flex-shrink-0 ms-3">
+                    <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 50px; height: 50px; background-color: rgba(255, 255, 255, 0.2);">
+                        <i class="bi bi-x-circle fs-4"></i>
                     </div>
                 </div>
             </div>
@@ -212,22 +279,25 @@
         gradientBlue.addColorStop(1, 'rgba(37, 99, 235, 0.0)');
         
         new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'],
+                labels: ['Menunggu', 'Diproses', 'Disetujui', 'Ditolak'],
                 datasets: [{
-                    label: 'Pengajuan Surat',
-                    data: [45, 62, 58, 80, 65, 90, 75],
-                    borderColor: '#2563EB',
-                    backgroundColor: gradientBlue,
-                    borderWidth: 3,
-                    pointBackgroundColor: '#FFFFFF',
-                    pointBorderColor: '#2563EB',
-                    pointBorderWidth: 2,
-                    pointRadius: 4,
-                    pointHoverRadius: 6,
-                    fill: true,
-                    tension: 0.4
+                    label: 'Jumlah Surat',
+                    data: [
+                        {{ $suratMenunggu }}, 
+                        {{ $suratDiproses }}, 
+                        {{ $suratDisetujui }}, 
+                        {{ $suratDitolak }}
+                    ],
+                    backgroundColor: [
+                        '#f59e0b', // Menunggu - Kuning
+                        '#2563EB', // Diproses - Biru
+                        '#10b981', // Disetujui - Hijau
+                        '#ef4444'  // Ditolak - Merah
+                    ],
+                    borderWidth: 0,
+                    borderRadius: 6
                 }]
             },
             options: {

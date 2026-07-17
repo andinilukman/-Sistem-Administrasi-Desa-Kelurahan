@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\KartuKeluarga;
 use App\Models\Penduduk;
 use App\Models\AparatDesa;
+use App\Models\PengajuanSurat;
 
 class DashboardController extends Controller
 {
@@ -14,7 +15,17 @@ class DashboardController extends Controller
         $jumlahKk = KartuKeluarga::count();
         $jumlahPenduduk = Penduduk::count();
         $jumlahAparat = AparatDesa::count();
-        return view('dashboard', compact('jumlahKk', 'jumlahPenduduk', 'jumlahAparat'));
+        
+        $suratMenunggu = PengajuanSurat::where('status', 'Menunggu')->count();
+        $suratDiproses = PengajuanSurat::where('status', 'Diproses')->count();
+        $suratDisetujui = PengajuanSurat::where('status', 'Disetujui')->count();
+        $suratDitolak = PengajuanSurat::where('status', 'Ditolak')->count();
+        $totalSurat = PengajuanSurat::count();
+        
+        return view('dashboard', compact(
+            'jumlahKk', 'jumlahPenduduk', 'jumlahAparat', 
+            'suratMenunggu', 'suratDiproses', 'suratDisetujui', 'suratDitolak', 'totalSurat'
+        ));
     }
 
     public function placeholder($title)

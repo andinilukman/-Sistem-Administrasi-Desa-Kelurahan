@@ -246,8 +246,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('verifikasi-surat') }}"
-                    class="nav-link {{ request()->routeIs('verifikasi-surat') ? 'active' : '' }}">
+                <a href="{{ route('verifikasi-surat.index') }}"
+                    class="nav-link {{ request()->routeIs('verifikasi-surat.*') ? 'active' : '' }}">
                     <i class="bi bi-envelope-check-fill"></i>
                     Verifikasi Surat
                 </a>
