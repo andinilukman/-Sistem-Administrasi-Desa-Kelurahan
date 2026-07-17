@@ -30,4 +30,9 @@ class Penduduk extends Model
     {
         return $this->belongsTo(KartuKeluarga::class);
     }
+
+    public function pengajuanSurat()
+    {
+        return $this->hasMany(PengajuanSurat::class);
+    }
 }

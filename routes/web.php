@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         
         // Administrasi Surat
-        Route::get('/pengajuan-surat', [DashboardController::class, 'placeholder'])->defaults('title', 'pengajuan-surat')->name('pengajuan-surat');
+        Route::resource('pengajuan-surat', App\Http\Controllers\PengajuanSuratController::class);
         Route::get('/verifikasi-surat', [DashboardController::class, 'placeholder'])->defaults('title', 'verifikasi-surat')->name('verifikasi-surat');
         Route::get('/surat-disetujui', [DashboardController::class, 'placeholder'])->defaults('title', 'surat-disetujui')->name('surat-disetujui');
         Route::get('/surat-ditolak', [DashboardController::class, 'placeholder'])->defaults('title', 'surat-ditolak')->name('surat-ditolak');

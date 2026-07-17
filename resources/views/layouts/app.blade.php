@@ -239,8 +239,8 @@
 
             <li class="nav-item-header">Administrasi Surat</li>
             <li class="nav-item">
-                <a href="{{ route('pengajuan-surat') }}"
-                    class="nav-link {{ request()->routeIs('pengajuan-surat') ? 'active' : '' }}">
+                <a href="{{ route('pengajuan-surat.index') }}"
+                    class="nav-link {{ request()->routeIs('pengajuan-surat.*') ? 'active' : '' }}">
                     <i class="bi bi-envelope-plus-fill"></i>
                     Pengajuan Surat
                 </a>
