@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\KartuKeluarga;
 use App\Models\Penduduk;
+use App\Models\AparatDesa;
 
 class DashboardController extends Controller
 {
@@ -12,7 +13,8 @@ class DashboardController extends Controller
     {
         $jumlahKk = KartuKeluarga::count();
         $jumlahPenduduk = Penduduk::count();
-        return view('dashboard', compact('jumlahKk', 'jumlahPenduduk'));
+        $jumlahAparat = AparatDesa::count();
+        return view('dashboard', compact('jumlahKk', 'jumlahPenduduk', 'jumlahAparat'));
     }
 
     public function placeholder($title)

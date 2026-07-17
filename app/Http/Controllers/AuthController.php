@@ -3,41 +3,44 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function login()
     {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
         return view('auth.login');
     }
 
     public function process(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required',
         ], [
-            'username.required' => 'Nama pengguna wajib diisi.',
+            'username.required' => 'Username wajib diisi.',
             'password.required' => 'Kata sandi wajib diisi.',
         ]);
 
-        // Simple mock login since we don't have DB setup yet
-        // In real app, use Auth::attempt()
-        if ($request->username === 'admin' && $request->password === 'admin') {
-            session(['user_logged_in' => true, 'username' => 'Admin Desa']);
-            return redirect()->route('dashboard')->with('success', 'Selamat datang di Sistem Administrasi Desa/Kelurahan');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->intended('dashboard')->with('success', 'Selamat datang di Sistem Administrasi, ' . Auth::user()->name);
         }
 
-        // Just let any login pass for the sake of mockup if needed, or strictly check 'admin'
-        // Let's accept anything for the demonstration except empty
-        session(['user_logged_in' => true, 'username' => $request->username]);
-        return redirect()->route('dashboard')->with('success', 'Selamat datang di Sistem Administrasi Desa/Kelurahan');
+        return back()->withErrors([
+            'username' => 'Username atau kata sandi tidak cocok.',
+        ])->onlyInput('username');
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        session()->forget('user_logged_in');
-        session()->forget('username');
+        Auth::logout();
+        
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         
         return redirect()->route('login');
     }

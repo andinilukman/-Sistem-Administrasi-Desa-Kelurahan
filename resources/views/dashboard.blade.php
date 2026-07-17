@@ -54,7 +54,7 @@
             <div class="card-body p-4 d-flex align-items-center">
                 <div class="flex-grow-1">
                     <h6 class="text-muted fw-semibold mb-2 text-uppercase" style="font-size: 0.8rem;">Jumlah Aparat Desa</h6>
-                    <h3 class="fw-bold mb-0" style="color: var(--sidebar-blue);">24</h3>
+                    <h3 class="fw-bold mb-0" style="color: var(--sidebar-blue);">{{ number_format($jumlahAparat, 0, ',', '.') }}</h3>
                 </div>
                 <div class="flex-shrink-0 ms-3">
                     <div class="d-flex align-items-center justify-content-center rounded-circle" style="width: 55px; height: 55px; background-color: rgba(245, 158, 11, 0.1);">

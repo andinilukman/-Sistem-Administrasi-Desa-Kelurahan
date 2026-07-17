@@ -212,6 +212,7 @@
                 </a>
             </li>
 
+            @if(auth()->check() && auth()->user()->role == 'Admin')
             <li class="nav-item-header">Master Data</li>
             <li class="nav-item">
                 <a href="{{ route('kartu-keluarga.index') }}"
@@ -228,12 +229,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('aparat-desa') }}"
-                    class="nav-link {{ request()->routeIs('aparat-desa') ? 'active' : '' }}">
+                <a href="{{ route('aparat-desa.index') }}"
+                    class="nav-link {{ request()->routeIs('aparat-desa.*') ? 'active' : '' }}">
                     <i class="bi bi-person-badge-fill"></i>
                     Data Aparat Desa
                 </a>
             </li>
+            @endif
 
             <li class="nav-item-header">Administrasi Surat</li>
             <li class="nav-item">
@@ -323,8 +325,12 @@
                     <div class="dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="me-2 fw-medium">Nama Admin</span>
-                            <img src="https://ui-avatars.com/api/?name=Admin+Desa&background=2563EB&color=fff"
+                            <span class="me-2 fw-medium">
+                                {{ auth()->check() ? auth()->user()->name : 'Guest' }}
+                                <br>
+                                <small class="text-muted" style="font-size: 0.75rem;">{{ auth()->check() ? auth()->user()->role : '' }}</small>
+                            </span>
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->check() ? auth()->user()->name : 'Guest') }}&background=2563EB&color=fff"
                                 alt="Profil" class="profile-img">
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="border-radius: 10px;">
